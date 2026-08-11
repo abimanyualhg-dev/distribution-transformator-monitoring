@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Monitoring Trafo</title>
+
+<link
+rel="icon"
+type="image/png"
+href="assets/favicon.png">
+
+<link
+rel="stylesheet"
+href="css/style.css">
+
+<link
+rel="stylesheet"
+href="css/glass.css">
+
+<link
+rel="stylesheet"
+href="css/dashboard.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+    <style>
+        /* Fixed branding */
+        .fixed-campus-logo {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .fixed-campus-logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .fixed-credit {
+            position: fixed;
+            left: 50%;
+            bottom: 8px;
+            transform: translateX(-50%);
+            z-index: 9999;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.15px;
+            opacity: 1;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        body.light-mode .fixed-credit {
+            color: #000000;
+        }
+
+        @media (max-width: 600px) {
+            .fixed-campus-logo {
+                top: 12px;
+            }
+
+            .fixed-campus-logo img {
+                width: 34px;
+                height: 34px;
+            }
+
+            .fixed-credit {
+                bottom: 5px;
+                font-size: 7px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Fixed campus branding -->
+    <div class="fixed-campus-logo">
+        <img src="assets/PPI-LOGO.png" alt="PPI Curug">
+    </div>
+
+    <div class="fixed-credit">
+        *Designed and Developed by Abimanyu Furqan Al-Hagus
+    </div>
+
+<main class="pages">
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="dashboard page">
+
+        <div class="dashboard-header">
+
+            <h1>DISTRIBUTION TRANSFORMATOR MONITORING</h1>
+
+            <p>Real-time Monitoring</p>
+
+            <div class="datetime">
+
+                <span id="currentDate"></span>
+
+                <span class="dot">•</span>
+
+                <span id="currentTime"></span>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="glass card">
+                <h3>IR</h3>
+                <h2 id="ir">0 A</h2>
+            </div>
+
+            <div class="glass card">
+                <h3>IS</h3>
+                <h2 id="is">0 A</h2>
+            </div>
+
+            <div class="glass card">
+                <h3>IT</h3>
+                <h2 id="it">0 A</h2>
+            </div>
+
+            <div class="glass card">
+                <h3>TEMPERATURE</h3>
+                <h2 id="temp">0 °C</h2>
+            </div>
+
+            <div class="glass card">
+                <h3>LOAD</h3>
+                <h2 id="overload">0 %</h2>
+            </div>
+
+            <div class="glass card">
+                <h3>UNBALANCE</h3>
+                <h2 id="unbalance">0 %</h2>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= GRAPHIC ================= -->
+
+    <section id="graphic" class="graph-section page">
+
+        <button id="backMonthly" class="back-btn">
+
+            <i data-lucide="arrow-left"></i>
+
+        </button>
+
+        <div class="graph-header">
+
+            <h1>MONTHLY ANALYTICS</h1>
+
+            <p>Distribution Transformer Performance</p>
+
+        </div>
+
+        <div class="glass chart-card">
+
+            <canvas id="monthlyChart"></canvas>
+
+        </div>
+
+        <div class="chart-filter">
+
+            <button class="filter-btn active" data-parameter="ir">
+                IR
+            </button>
+
+            <button class="filter-btn" data-parameter="is">
+                IS
+            </button>
+
+            <button class="filter-btn" data-parameter="it">
+                IT
+            </button>
+
+            <button class="filter-btn" data-parameter="temp">
+                TEMPERATURE
+            </button>
+
+            <button class="filter-btn" data-parameter="load">
+                LOAD
+            </button>
+
+            <button class="filter-btn" data-parameter="unbalance">
+                UNBALANCE
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ================= AI ================= -->
+
+<section id="copilot" class="page copilot-section">
+
+    <div class="copilot-container">
+
+        <h1>AI COPILOT</h1>
+
+        <p>Predictive Maintenance Decision Support</p>
+
+    </div>
+
+    <div class="glass copilot-card">
+
+        <div class="copilot-content">
+
+            <div class="copilot-text">
+
+                <h2 id="aiTitle">
+                    Ringkasan Analisis
+                </h2>
+
+                <ul id="aiList">
+
+                    <li>...</li>
+                    <li>...</li>
+                    <li>...</li>
+
+                </ul>
+
+            </div>
+
+            <div class="copilot-robot">
+
+                <img src="assets/robot.png" id="robot">
+
+                <div class="robot-glow"></div>
+
+                <div class="robot-face">
+
+                    <div class="eye eye-left"></div>
+
+                    <div class="eye eye-right"></div>
+
+                    <div class="mouth"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="chart-filter">
+
+            <button class="filter-btn active">
+                RINGKASAN
+            </button>
+
+            <button class="filter-btn">
+                TREN
+            </button>
+
+            <button class="filter-btn">
+                REKOMENDASI
+            </button>
+
+            <button class="filter-btn">
+                PREDIKSI
+            </button>
+
+            <button class="filter-btn">
+                TIMELINE
+            </button>
+
+        </div>
+
+</section>
+
+</main>
+
+    <nav class="bottom-nav">
+
+        <div class="glass">
+
+            <div class="glass-highlight"></div>
+            <div class="glass-shine"></div>
+
+            <div class="active-pill"></div>
+
+            <div class="nav-items">
+
+                <button class="nav-btn active"
+                        data-target="dashboard"
+                        data-icon="house">
+
+                    <i data-lucide="house"></i>
+
+                    <span>Dashboard</span>
+
+                </button>
+
+                <button class="nav-btn"
+                        data-icon="chart-column"
+                        data-target="graphic">
+
+                    <i data-lucide="chart-column"></i>
+
+                    <span>Graphic</span>
+
+                </button>
+
+                <button class="nav-btn"
+                        data-icon="bot"
+                        data-target="copilot">
+
+                    <i data-lucide="bot"></i>
+
+                    <span>AI Copilot</span>
+
+                </button>
+
+                <div class="nav-divider"></div>
+
+                <button id="themeToggle" class="theme-btn">
+
+                    <i
+                        id="themeIcon"
+                        data-lucide="moon">
+                    </i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <script type="module" src="js/firebase.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/historyGenerator.js"></script>
+    <script src="js/aiEngine.js"></script>
+    <script src="js/copilot.js"></script>
+
+    <script src="js/robot.js"></script>
+    <script src="js/datetime.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/monthlyChart.js"></script>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
